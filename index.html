@@ -11,12 +11,13 @@
             --card-bg: #2a2420;
             --accent: #bc6c25;
             --text: #fefae0;
+            --transition: all 0.3s ease;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: 'Georgia', serif; /* Softer, book-like font */
+            font-family: 'Georgia', serif;
             background-color: var(--bg);
             color: var(--text);
             overflow-x: hidden;
@@ -28,110 +29,93 @@
             position: fixed; top: 0; width: 100%;
             display: flex; justify-content: space-between; align-items: center;
             padding: 20px 5%; z-index: 1000;
-            background: linear-gradient(to bottom, rgba(26,22,20,0.9), transparent);
-            backdrop-filter: blur(5px);
+            background: linear-gradient(to bottom, rgba(26,22,20,0.95), transparent);
+            backdrop-filter: blur(10px);
         }
         .nav-brand { 
             color: var(--primary); 
             font-size: 2rem; 
             font-weight: 900; 
             letter-spacing: -1px;
+            cursor: pointer;
             text-shadow: 0 0 15px rgba(212, 163, 115, 0.3);
         }
 
-        .profile-area {
-            display: flex; align-items: center; gap: 15px;
-        }
+        .profile-area { display: flex; align-items: center; gap: 15px; }
         
         #userBadge {
             width: 38px; height: 38px; 
             background: var(--accent); 
-            border-radius: 50%; /* Rounded for cozy feel */
+            border-radius: 50%;
             display: flex; align-items: center; justify-content: center; 
             cursor: pointer; font-weight: bold;
             border: 2px solid var(--primary);
         }
 
-        /* --- COZY HERO --- */
+        /* --- HERO --- */
         .hero {
-            position: relative;
-            height: 75vh;
-            display: flex;
-            align-items: center;
+            position: relative; height: 80vh;
+            display: flex; align-items: center;
             padding: 0 5%;
-            background-size: cover;
-            background-position: center;
-            border-bottom: 4px solid var(--card-bg);
+            background-size: cover; background-position: center;
+            transition: var(--transition);
         }
-
         .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, var(--bg) 10%, rgba(26,22,20,0.4) 50%, var(--bg) 95%),
-                        linear-gradient(to top, var(--bg), transparent 40%);
+            position: absolute; inset: 0;
+            background: linear-gradient(90deg, var(--bg) 10%, rgba(26,22,20,0.2) 50%, var(--bg) 95%),
+                        linear-gradient(to top, var(--bg), transparent 50%);
         }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 550px;
+        .hero-content { position: relative; z-index: 2; max-width: 600px; }
+        .hero-content h1 { font-size: 4rem; margin-bottom: 10px; color: var(--primary); }
+        .hero-tagline { font-size: 1.2rem; color: var(--accent); font-weight: bold; margin-bottom: 10px; }
+        
+        /* --- BUTTONS --- */
+        .btn {
+            padding: 14px 35px; border: none; border-radius: 50px;
+            font-weight: bold; cursor: pointer; transition: var(--transition);
+            display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
         }
+        .btn-play { background: var(--primary); color: var(--bg); }
+        .btn-play:hover { background: var(--text); transform: scale(1.05); }
+        .btn-outline { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); }
+        .btn-outline:hover { background: rgba(255,255,255,0.2); }
 
-        .hero-content h1 { font-size: 3.5rem; margin-bottom: 0.5rem; color: var(--primary); }
-        .hero-content p { font-size: 1.1rem; color: #ccc; margin-bottom: 2rem; font-style: italic; }
+        /* --- VIEWS --- */
+        .view-section { transition: opacity 0.5s ease; padding-top: 80px; }
+        .hidden { display: none !important; opacity: 0; }
 
-        .btn-play {
-            background: var(--primary);
-            color: var(--bg);
-            padding: 14px 35px;
-            border: none;
-            border-radius: 50px; /* Pill shape */
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .btn-play:hover { background: var(--text); transform: translateY(-2px); }
+        /* --- MOVIE DETAILS PAGE --- */
+        .details-page { padding: 100px 5%; display: grid; grid-template-columns: 350px 1fr; gap: 50px; }
+        .details-poster img { width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid var(--card-bg); }
+        .details-info h1 { font-size: 4rem; color: var(--primary); margin-bottom: 10px; }
+        .meta-strip { margin-bottom: 20px; color: var(--accent); font-weight: bold; }
+        .description { font-size: 1.2rem; margin-bottom: 30px; max-width: 800px; opacity: 0.9; }
 
         /* --- SHELVES --- */
         .row { padding: 40px 5% 0; }
-        .row-title { 
-            font-size: 1.6rem; 
-            margin-bottom: 20px; 
-            color: var(--primary);
-            border-left: 3px solid var(--accent);
-            padding-left: 15px;
-        }
-        
-        .slider {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            padding-bottom: 30px;
-        }
-        .slider::-webkit-scrollbar { height: 4px; }
-        .slider::-webkit-scrollbar-thumb { background: var(--card-bg); border-radius: 10px; }
+        .row-title { font-size: 1.6rem; margin-bottom: 20px; color: var(--primary); border-left: 4px solid var(--accent); padding-left: 15px; }
+        .slider { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 30px; scroll-behavior: smooth; }
+        .slider::-webkit-scrollbar { height: 6px; }
+        .slider::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
         .card {
-            min-width: 220px;
-            height: 320px;
-            background: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: 0.4s ease;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            min-width: 200px; height: 300px; background: var(--card-bg);
+            border-radius: 12px; overflow: hidden; cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
         }
-        .card:hover { transform: scale(1.03) translateY(-10px); }
-        .card img { width: 100%; height: 100%; object-fit: cover; filter: sepia(20%); }
-
-        /* --- PLAYER --- */
-        #playerModal {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; display: none;
-            padding: 40px;
+        .card:hover { transform: scale(1.08); z-index: 10; }
+        .card img { width: 100%; height: 100%; object-fit: cover; }
+        .card-overlay {
+            position: absolute; inset: 0; background: rgba(0,0,0,0.6);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: 0.3s;
         }
-        .close-btn { position: absolute; top: 10px; right: 25px; font-size: 50px; color: var(--primary); cursor: pointer; }
+        .card:hover .card-overlay { opacity: 1; }
 
-        .hidden { display: none !important; }
+        /* --- MODAL --- */
+        #playerModal { position: fixed; inset: 0; background: #000; z-index: 2000; display: none; }
+        .close-btn { position: absolute; top: 20px; right: 30px; font-size: 40px; color: white; cursor: pointer; z-index: 2001; }
 
         #authOverlay {
             position: fixed; inset: 0; background: var(--bg); z-index: 3000;
@@ -143,31 +127,36 @@
 
 <div id="authOverlay">
     <div style="text-align: center;">
-        <h1 style="color: var(--primary); font-size: 3rem; margin-bottom: 20px;">Debtflix</h1>
-        <button class="btn-play" onclick="login()">Start Watching</button>
+        <h1 style="color: var(--primary); font-size: 4rem; margin-bottom: 10px;">Debtflix</h1>
+        <p style="margin-bottom: 30px; opacity: 0.7;">Grab a blanket. Stay a while.</p>
+        <button class="btn btn-play" onclick="login()">Enter Library</button>
     </div>
 </div>
 
 <nav class="nav">
-    <div class="nav-brand">DEBTFLIX</div>
+    <div class="nav-brand" onclick="showHome()">DEBTFLIX</div>
     <div class="profile-area">
         <span id="displayUsername" style="font-size: 0.9rem; opacity: 0.8;"></span>
         <div id="userBadge" onclick="changeProfile()">?</div>
     </div>
 </nav>
 
-<section class="hero" id="heroBox">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-        <h1 id="heroTitle">Spider-Man: No Way Home</h1>
-        <p id="heroDesc">A multiverse journey from the comfort of your couch.</p>
-        <button class="btn-play" onclick="playHero()">▶ Relax & Watch</button>
-    </div>
-</section>
+<div id="homeView" class="view-section">
+    <section class="hero" id="heroBox">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-tagline">TRENDING NOW</div>
+            <h1 id="heroTitle">Spider-Man</h1>
+            <p id="heroDesc" style="margin-bottom: 25px;">A multiverse journey from the comfort of your couch.</p>
+            <div style="display: flex; gap: 15px;">
+                <button class="btn btn-play" onclick="playHero()">▶ Play</button>
+                <button class="btn btn-outline" onclick="viewDetails(0)">ⓘ More Info</button>
+            </div>
+        </div>
+    </section>
 
-<main>
     <div class="row hidden" id="continueSection">
-        <h2 class="row-title">Pick Up Where You Left Off</h2>
+        <h2 class="row-title">Continue Watching</h2>
         <div class="slider" id="continueSlider"></div>
     </div>
 
@@ -175,22 +164,54 @@
         <h2 class="row-title">Cozy Collection</h2>
         <div class="slider" id="mainLibrary"></div>
     </div>
-</main>
+</div>
+
+<div id="detailsView" class="view-section hidden">
+    <div class="details-page" id="detailsContent">
+        </div>
+    <div class="row">
+        <h2 class="row-title">You Might Also Like</h2>
+        <div class="slider" id="relatedSlider"></div>
+    </div>
+</div>
 
 <div id="playerModal">
     <span class="close-btn" onclick="closePlayer()">&times;</span>
-    <iframe id="playerFrame" width="100%" height="100%" frameborder="0" allowfullscreen style="border-radius: 20px; box-shadow: 0 0 50px var(--primary);"></iframe>
+    <iframe id="playerFrame" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
 </div>
 
 <script>
-    // --- DATA ---
     const films = [
-        { title: "Spider-Man: No Way Home", img: "./Movie Night+_files/Spider_man.png", url: "https://drive.google.com/file/d/1nz8zyXltiKC4F3c8Aen7q_rYIOaLdqB3/preview" },
-        { title: "Wonder Woman 1984", img: "./Movie Night+_files/WW84.jpg", url: "https://drive.google.com/file/d/17GVYW1g3tVJdJnjY0kvCZJIidjrg4uxF/preview" },
-        { title: "Five Nights at Freddy's", img: "./Movie Night+_files/FNAF.jpg", url: "https://drive.google.com/file/d/18RUfgYZVOgKdHVQTZpVq1RSZGVv2dWY-/preview" },
-        { title: "Iron Man", img: "./Movie Night+_files/Iron man.jpg", url: "https://drive.google.com/file/d/1IO1JcSdcN9hbe8kxU9yuJRKygqZIHChh/preview" },
-        { title: "The Bad Guys", img: "./Movie Night+_files/badguys1.jpg", url: "https://drive.google.com/file/d/15bbwHMR5jqkG-TJUqPg0myDQBLkxvTM3/preview" },
-        { title: "The Bad Guys 2", img: "./Movie Night+_files/badguys2.jpg", url: "https://drive.google.com/file/d/176si3pT-sGF9xyLA7OpRbYRoQXT710z7/preview" }
+        { 
+            id: 0, title: "Spider-Man: No Way Home", year: "2021", genre: "Action • Sci-Fi", 
+            desc: "For the first time in the cinematic history of Spider-Man, our friendly neighborhood hero's identity is revealed, bringing his Super Hero responsibilities into conflict with his normal life.",
+            img: "./Movie Night+_files/Spider_man.png", url: "https://drive.google.com/file/d/1nz8zyXltiKC4F3c8Aen7q_rYIOaLdqB3/preview" 
+        },
+        { 
+            id: 1, title: "Wonder Woman 1984", year: "2020", genre: "Action • Adventure", 
+            desc: "Diana Prince lives quietly among mortals in the vibrant, sleek 1980s—an era of excess driven by the pursuit of having it all.",
+            img: "./Movie Night+_files/WW84.jpg", url: "https://drive.google.com/file/d/17GVYW1g3tVJdJnjY0kvCZJIidjrg4uxF/preview" 
+        },
+        { 
+            id: 2, title: "Five Nights at Freddy's", year: "2023", genre: "Horror • Mystery", 
+            desc: "A troubled security guard begins working at Freddy Fazbear's Pizzeria. While spending his first night on the job, he realizes the night shift at Freddy's won't be so easy to make it through.",
+            img: "./Movie Night+_files/FNAF.jpg", url: "https://drive.google.com/file/d/18RUfgYZVOgKdHVQTZpVq1RSZGVv2dWY-/preview" 
+        },
+        { 
+            id: 3, title: "Iron Man", year: "2008", genre: "Action • Adventure", 
+            desc: "After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil.",
+            img: "./Movie Night+_files/Iron man.jpg", url: "https://drive.google.com/file/d/1IO1JcSdcN9hbe8kxU9yuJRKygqZIHChh/preview" 
+        },
+        { 
+            id: 4, title: "The Bad Guys", year: "2022", genre: "Animation • Comedy", 
+            desc: "To avoid prison, a gang of notorious animal criminals pretends to seek rehabilitation, only for their leader to realize that he genuinely wants to change his ways.",
+            img: "./Movie Night+_files/badguys1.jpg", url: "https://drive.google.com/file/d/15bbwHMR5jqkG-TJUqPg0myDQBLkxvTM3/preview" 
+        },
+        { 
+            id: 5, title: "The Bad Guys 2", year: "2025", genre: "Animation • Comedy", 
+            desc: "The world's favorite reformed outlaws are back for another heist that might just prove that being 'good' is the ultimate challenge.",
+            img: "./Movie Night+_files/badguys2.jpg", url: "https://drive.google.com/file/d/176si3pT-sGF9xyLA7OpRbYRoQXT710z7/preview" 
+        }
     ];
 
     let user = localStorage.getItem("debtflix_user") || "Guest";
@@ -203,25 +224,57 @@
         loadHistory();
     }
 
-    function login() {
-        localStorage.setItem("debtflix_active", "true");
-        document.getElementById('authOverlay').classList.add('hidden');
-    }
-
     function renderMain() {
         const container = document.getElementById('mainLibrary');
         container.innerHTML = films.map(f => `
-            <div class="card" onclick="startMovie('${f.url}', '${f.title}', '${f.img}')">
+            <div class="card" onclick="viewDetails(${f.id})">
+                <img src="${f.img}" alt="${f.title}">
+                <div class="card-overlay"><span>View Info</span></div>
+            </div>
+        `).join('');
+    }
+
+    function viewDetails(id) {
+        const film = films.find(f => f.id === id);
+        const detailsContent = document.getElementById('detailsContent');
+        
+        detailsContent.innerHTML = `
+            <div class="details-poster">
+                <img src="${film.img}" alt="${film.title}">
+            </div>
+            <div class="details-info">
+                <div class="meta-strip">${film.year} | ${film.genre}</div>
+                <h1>${film.title}</h1>
+                <p class="description">${film.desc}</p>
+                <div style="display: flex; gap: 15px;">
+                    <button class="btn btn-play" onclick="startMovie('${film.url}', '${film.title}', '${film.img}')">▶ Watch Now</button>
+                    <button class="btn btn-outline" onclick="showHome()">Back to Home</button>
+                </div>
+            </div>
+        `;
+
+        // Render "Related" (everything except current)
+        const related = films.filter(f => f.id !== id);
+        document.getElementById('relatedSlider').innerHTML = related.map(f => `
+            <div class="card" onclick="viewDetails(${f.id})">
                 <img src="${f.img}" alt="${f.title}">
             </div>
         `).join('');
+
+        document.getElementById('homeView').classList.add('hidden');
+        document.getElementById('detailsView').classList.remove('hidden');
+        window.scrollTo(0,0);
+    }
+
+    function showHome() {
+        document.getElementById('detailsView').classList.add('hidden');
+        document.getElementById('homeView').classList.remove('hidden');
     }
 
     function startMovie(url, title, img) {
         document.getElementById('playerFrame').src = url;
         document.getElementById('playerModal').style.display = 'block';
         
-        // Save to User History
         let history = JSON.parse(localStorage.getItem(`${user}_history`) || "[]");
         history = history.filter(m => m.title !== title);
         history.unshift({title, url, img});
@@ -240,6 +293,11 @@
                 </div>
             `).join('');
         }
+    }
+
+    function login() {
+        localStorage.setItem("debtflix_active", "true");
+        document.getElementById('authOverlay').classList.add('hidden');
     }
 
     function changeProfile() {
